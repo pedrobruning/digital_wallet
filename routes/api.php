@@ -16,7 +16,9 @@ use App\Http\Controllers\Auth\RegistrationController;
 */
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::post('transactions/{payee}', [\App\Http\Controllers\TransactionController::class, 'test'])->name('transactions.make');
+    Route::group(['middleware' => 'transaction'], function () {
+        Route::post('transactions/{payee}', [\App\Http\Controllers\TransactionController::class, 'test'])->name('transactions.make');
+    });
 });
 
 Route::post('authenticate', [AuthenticationController::class, 'authenticate'])->name('users.login');

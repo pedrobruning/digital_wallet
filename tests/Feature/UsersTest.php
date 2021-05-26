@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
@@ -48,11 +49,15 @@ class UsersTest extends TestCase
             'email' => 'email@email.com'
         ];
 
-        $response = $this->post('/api/authenticate', $payload);
+        $headers = [
+            'Accept' => 'content/json'
+        ];
 
-        $response->assertStatus(404);
+        $response = $this->post('/api/authenticate', $payload, $headers);
+
+        $response->assertStatus(401);
         $response->assertJson([
-            'message' => 'User not found'
+            'message' => 'Unable to Authenticate User'
         ]);
     }
 
@@ -67,11 +72,15 @@ class UsersTest extends TestCase
             'email' => $this->faker->email
         ];
 
-        $response = $this->post('/api/authenticate', $payload);
+        $headers = [
+            'Accept' => 'content/json'
+        ];
 
-        $response->assertStatus(404);
+        $response = $this->post('/api/authenticate', $payload, $headers);
+
+        $response->assertStatus(401);
         $response->assertJson([
-            'message' => 'User not found'
+            'message' => 'Unable to Authenticate User'
         ]);
     }
 

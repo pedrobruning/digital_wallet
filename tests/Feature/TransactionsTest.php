@@ -88,13 +88,13 @@ class TransactionsTest extends TestCase
         ];
 
         $response = $this->actingAs($user)->post($uri, $payload, $headers);
-
-        $response->assertStatus(Response::HTTP_BAD_REQUEST);
+        
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJson([
-            'message' => 'The transaction was not completed.',
-            'error' => [
-                [
-                    'message' => 'You dont have enough balance to complete the transaction.'
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'value' => [
+                    'You do not have enough balance to complete the transaction.'
                 ]
             ]
         ]);
@@ -123,12 +123,7 @@ class TransactionsTest extends TestCase
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
         $response->assertJson([
-            'message' => 'The transaction was not completed.',
-            'error' => [
-                [
-                    'message' => 'Retailer accounts are not allowed to make transactions.'
-                ]
-            ]
+            'message' => 'Retailer accounts are not allowed to make transactions.'
         ]);
     }
 }

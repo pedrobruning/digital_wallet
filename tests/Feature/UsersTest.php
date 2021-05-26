@@ -22,7 +22,7 @@ class UsersTest extends TestCase
         ];
         $response = $this->post('/api/authenticate', $payload);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function testRetailerUserCanAuthenticateSuccessfully()
@@ -37,7 +37,7 @@ class UsersTest extends TestCase
         ];
         $response = $this->post('/api/authenticate', $payload);
 
-        $response->assertStatus(200);
+        $response->assertStatus(Response::HTTP_OK);
     }
 
     public function testDefaultUserCantAuthenticateWithWrongCredentials()
@@ -55,7 +55,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/authenticate', $payload, $headers);
 
-        $response->assertStatus(401);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJson([
             'message' => 'Unable to Authenticate User'
         ]);
@@ -78,7 +78,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/authenticate', $payload, $headers);
 
-        $response->assertStatus(401);
+        $response->assertStatus(Response::HTTP_UNAUTHORIZED);
         $response->assertJson([
             'message' => 'Unable to Authenticate User'
         ]);
@@ -95,7 +95,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/register', $payload);
 
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJsonFragment([
             'data' => [
                 'name' => 'Testing User',
@@ -117,7 +117,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/register', $payload);
 
-        $response->assertStatus(201);
+        $response->assertStatus(Response::HTTP_CREATED);
         $response->assertJsonFragment([
             'data' => [
                 'name' => 'Testing User',
@@ -146,7 +146,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/register', $payload, $headers);
 
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJson([
             'message' => 'The given data was invalid.',
             'errors' => [
@@ -176,7 +176,7 @@ class UsersTest extends TestCase
 
         $response = $this->post('/api/register', $payload, $headers);
 
-        $response->assertStatus(422);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJson([
             'message' => 'The given data was invalid.',
             'errors' => [

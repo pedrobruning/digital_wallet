@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Resources\RegistrationResource;
-use App\Http\Services\UserService;
+use App\Services\UserService;
 
 class RegistrationController extends Controller
 {

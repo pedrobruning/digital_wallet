@@ -1,11 +1,12 @@
 <?php
 
 
-namespace App\Http\Services;
+namespace App\Services;
 
-use App\Http\Repositories\UserRepository;
+use App\Repositories\UserRepository;
 use App\Http\Requests\AuthenticationRequest;
 use App\Http\Requests\RegistrationRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -19,6 +20,7 @@ class UserService
     public function register(RegistrationRequest $request)
     {
         $attributes = $request->validated();
+        $attributes['password'] = Hash::make($attributes['password']);
         return $this->userRepository->save($attributes);
     }
 

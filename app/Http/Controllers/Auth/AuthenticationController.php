@@ -6,7 +6,7 @@ use App\Exceptions\WrongCredentialsException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthenticationRequest;
 use App\Http\Resources\AuthenticationResource;
-use App\Http\Services\UserService;
+use App\Services\UserService;
 use Illuminate\Http\Response;
 
 class AuthenticationController extends Controller

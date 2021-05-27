@@ -88,7 +88,7 @@ class TransactionsTest extends TestCase
         ];
 
         $response = $this->actingAs($user)->post($uri, $payload, $headers);
-        
+
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJson([
             'message' => 'The given data was invalid.',

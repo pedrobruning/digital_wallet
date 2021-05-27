@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MakeTransactionResource;
 use App\Models\User;
 use App\Http\Requests\MakeTransactionRequest;
+use App\Services\TransactionService;
 
 class TransactionController extends Controller
 {
-    public function test(MakeTransactionRequest $request, User $payee)
+    private $transactionService;
+
+    public function __construct(TransactionService $transactionService)
     {
-        return $payee;
+        $this->transactionService = $transactionService;
+    }
+
+    public function makeTransaction(MakeTransactionRequest $request, User $payee)
+    {
+        $transaction = $this->transactionService->makeTransaction($request->value, $payee->id, auth()->id());
+        return new MakeTransactionResource($transaction->payer);
     }
 }

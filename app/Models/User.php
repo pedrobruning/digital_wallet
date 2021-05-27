@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'is_retailer',
-        'document'
+        'document',
+        'balance'
     ];
 
     /**
@@ -52,5 +53,19 @@ class User extends Authenticatable
     public function payerTransaction()
     {
         return $this->hasMany(Transaction::class, 'payer_id', 'id');
+    }
+
+    public function deposit($value)
+    {
+        $this->update([
+            'balance' => $this->balance + $value
+        ]);
+    }
+
+    public function withdraw($value)
+    {
+        $this->update([
+            'balance' => $this->balance - $value
+        ]);
     }
 }

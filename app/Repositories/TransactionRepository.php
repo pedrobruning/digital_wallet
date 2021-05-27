@@ -14,11 +14,6 @@ class TransactionRepository extends BaseRepository
         parent::__construct($transaction);
     }
 
-    public function update(array $attributes)
-    {
-        // TODO: Implement update() method.
-    }
-
     public function makeTransaction($attributes)
     {
         return DB::transaction(function() use ($attributes){
